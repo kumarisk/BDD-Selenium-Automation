@@ -17,7 +17,10 @@ pipeline {
 
         stage('Verify Environment') {
             steps {
+                bat 'echo JAVA_HOME=%JAVA_HOME%'
+                bat 'where java'
                 bat 'java -version'
+                bat 'where mvn'
                 bat 'mvn -version'
             }
         }
@@ -32,7 +35,8 @@ pipeline {
     post {
 
         always {
-            junit 'target/surefire-reports/*.xml'
+            junit allowEmptyResults: true,
+                  testResults: 'target/surefire-reports/*.xml'
         }
 
         success {
