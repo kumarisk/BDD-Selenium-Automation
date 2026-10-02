@@ -9,29 +9,34 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <compiler.target.version>21</compiler.target.version>
+        <maven.compiler.source>${compiler.target.version}</maven.compiler.source>
+        <maven.compiler.target>${compiler.target.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <cucumber-java>7.34.7</cucumber-java>
+        <cucumber.version>7.18.0</cucumber.version>
         <selenium-java>4.47.0</selenium-java>
-        <cucumber-testng>7.34.7</cucumber-testng>
         <testng>7.11.0</testng>
         <slf4j.version>2.0.18</slf4j.version>
         <jackson.databind.version>2.21.7</jackson.databind.version>
         <allure.cucumber.version>2.32.0</allure.cucumber.version>
         <webdriver.version>6.3.4</webdriver.version>
-        <junit.platfor.suite.version>6.1.3</junit.platfor.suite.version>
-        <cucumber.picocontainer.version>7.34.7</cucumber.picocontainer.version>
-        <cucumber.junit.platform.engin>7.34.7</cucumber.junit.platform.engin>
-        <surefire.version>3.6.0</surefire.version>
+        <surefire.version>3.2.5</surefire.version>
         <allure.version>2.35.5</allure.version>
+        <junit.jupiter.version>5.10.2</junit.jupiter.version>
     </properties>
 
 <!-- Allure BOM -->
     <dependencyManagement>
 
         <dependencies>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit.jupiter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <dependency>
                 <groupId>io.qameta.allure</groupId>
@@ -46,11 +51,16 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
         <!-- Source: https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>${cucumber-java}</version>
+            <version>${cucumber.version}</version>
         </dependency>
         <!-- Source: https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
@@ -62,7 +72,7 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-testng</artifactId>
-            <version>${cucumber-testng}</version>
+            <version>${cucumber.version}</version>
         </dependency>
         <!-- Source: https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
@@ -76,7 +86,7 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit-platform-engine</artifactId>
-            <version>${cucumber.junit.platform.engin}</version>
+            <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
 <!-- Dependency Injection -->
@@ -84,7 +94,7 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-picocontainer</artifactId>
-            <version>${cucumber.picocontainer.version}</version>
+            <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
 <!-- JUnit 5 / JUnit Platform -->
@@ -92,7 +102,6 @@
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-suite</artifactId>
-            <version>${junit.platfor.suite.version}</version>
             <scope>test</scope>
         </dependency>
 <!-- WebDriverManager -->
@@ -128,9 +137,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>7.34.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -144,9 +153,9 @@
 
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.1</version>
+                <version>3.11.0</version>
                 <configuration>
-                    <release>${java.version}</release>
+                    <release>${compiler.target.version}</release>
                 </configuration>
 
             </plugin>

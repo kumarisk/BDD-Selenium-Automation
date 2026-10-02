@@ -61,8 +61,7 @@ public final class DriverFactory {
 
     public static WebDriver getDriver() {
         if (driver.get() == null) {
-            throw new IllegalStateException(
-                    "WebDriver has not been initialized.");
+            throw new IllegalStateException();
         }
         return driver.get();
     }

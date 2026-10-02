@@ -8,11 +8,11 @@ import utils.WaitUtils;
 
 public class LoginPage {
 
-    private final By username = By.id("username");
+    private final By username = By.name("userLoginId");
 
-    private final By password = By.id("password");
+    private final By password = By.name("pass");
 
-    private final By loginButton = By.id("login");
+    private final By getstarted = By.xpath("//button[text()='Continue']");
 
     private final By errorMessage = By.cssSelector(".error");
 
@@ -36,7 +36,7 @@ public class LoginPage {
     }
 
     public void clickLogin() {
-        WaitUtils.waitForClickable(loginButton)
+        WaitUtils.waitForClickable(getstarted)
                 .click();
     }
 

@@ -13,7 +13,7 @@ import static io.cucumber.core.options.Constants.PLUGIN_PROPERTY_NAME;
 @SelectClasspathResource("features")
 @ConfigurationParameter(
         key = GLUE_PROPERTY_NAME,
-        value = "src/java"
+        value = "stepdefinitions,hooks"
 )
 @ConfigurationParameter(
         key = PLUGIN_PROPERTY_NAME,

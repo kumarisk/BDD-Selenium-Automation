@@ -8,7 +8,7 @@ Feature: Login functionality
   @Smoke @Positive
   Scenario: Successful login
 
-    When user enters username "testuser"
+    When user enters username "testuser@gmail.com"
     And user enters password "password"
     And user clicks on login button
 
