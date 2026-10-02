@@ -1,42 +1,49 @@
 pipeline {
 
-    agent any
-    tools {
-        jdk 'JDK-21'
-        maven 'Maven-3'
-    }
+agent any
 
-    stages {
-        stage('Verify Environment') {
-            steps {
-                bat 'echo JAVA_HOME=%JAVA_HOME%'
-                bat 'where java'
-                bat 'java -version'
-                bat 'where mvn'
-                bat 'mvn -version'
-            }
-        }
+tools {
+    jdk 'JDK-21'
+    maven 'Maven-3'
+}
 
-        stage('Run BDD Tests') {
-            steps {
-                bat 'mvn clean test -Dbrowser=chrome -Dheadless=true'
-            }
+stages {
+
+    stage('Verify Environment') {
+        steps {
+            bat 'echo JAVA_HOME=%JAVA_HOME%'
+            bat 'where java'
+            bat 'java -version'
+            bat 'where mvn'
+            bat 'mvn -version'
         }
     }
 
-    post {
-
-        always {
-            junit allowEmptyResults: true,
-                  testResults: 'target/surefire-reports/*.xml'
-        }
-
-        success {
-            echo 'BDD tests completed successfully.'
-        }
-
-        failure {
-            echo 'BDD tests failed.'
+    stage('Run BDD Tests') {
+        steps {
+            bat 'mvn clean test -Dbrowser=chrome -Dheadless=true'
         }
     }
+}
+
+post {
+
+    always {
+        junit allowEmptyResults: true,
+              testResults: 'target/surefire-reports/*.xml'
+
+        allure([
+            results: [[path: 'allure-results']]
+        ])
+    }
+
+    success {
+        echo 'BDD tests completed successfully.'
+    }
+
+    failure {
+        echo 'BDD tests failed.'
+    }
+}
+
 }
